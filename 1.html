@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spam.com</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #ff7f;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #555;
+        }
+        .info {
+            background: #ff792;
+            padding: 10px;
+            border-left: 4px solid #007BF;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CY78 PROJECT </h1>
+        <div class="info">
+            <p><strong>IP 127.0.0.0</strong> <span id=""></span></p>
+            <p><strong>Waktu:</strong> <span id="local-time">Loading...</span></p>
+        </div>
+        <form id="spam-form">
+            <label for="phone">Nomor Target:</label>
+            <input type="text" id="phone" name="phone" placeholder="Masukkan nomor HP..." required>
+            <label for="count">Jumlah Spam:</label>
+            <input type="number" id="count" name="count" placeholder="Jumlah..." min="1" required>
+            <button type="button" class="btn" id="send-button">Kirim Spam</button>
+        </form>
+        <p id="response" style="color: green; font-weight: bold;"></p>
+    </div>
+    <script>
+        async function fetchIP() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('ip-address').textContent = data.ip;
+        }
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('local-time').textContent = now.toString();
+        }
+
+        document.getElementById('send-button').addEventListener('click', () => {
+            const phone = document.getElementById('phone').value;
+            const count = document.getElementById('count').value;
+
+            if (phone && count) {
+                document.getElementById('response').textContent = `Spam dikirim ke nomor ${phone} sebanyak ${count} kali!`;
+            } else {
+                document.getElementById('response').textContent = `Mohon lengkapi semua data.`;
+            }
+        });
+
+        // Fetch IP on page load
+        fetchIP();
+        updateTime();
+    </script>
+</body>
+</html>
